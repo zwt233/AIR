@@ -46,6 +46,6 @@ bash ./src/run.sh
 
  
 
-###Node Classification Results:
+### Node Classification Results:
 
 ![citation_networks_perf](citation_networks_perf.png)
