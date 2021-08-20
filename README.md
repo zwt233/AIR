@@ -26,13 +26,13 @@ the code of MLP+Res and MLP+Dense is in ./src/mlp_sc.py;
 
 the code of SGC is in ./src/sgc.py;
 
-the code of GCN with $D_t=2$ and GCN with $D_p=2D_t$ is in ./src/gcn_2dt.py and ./src/gcn_dp2dt.py, respectively.
+the code of GCN with D<sub>t</sub>=2 and GCN with D<sub>p</sub>=2D<sub>t</sub> is in ./src/gcn_2dt.py and ./src/gcn_dp2dt.py, respectively.
 
 the code for printing the gradient of the first layer of GCN is in ./src/print_gradient.py;
 
 the code for the scalability experiment is provided in ./src/scalability/, please run gen_graph.py first to generate artificial graphs; then run appnp/gcn/dgmlp.py --n="graph_size", where "graph size" varies from 100,000 to 1,000,000 with the step of 100,000.
 
-We also provide the official code of DAGNN, S$^2$GC, and Grand under ./src/.
+We also provide the official code of DAGNN, S<sup>2</sup>GC, and Grand under ./src/.
 
 
 
