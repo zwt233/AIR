@@ -64,6 +64,64 @@ class LR(nn.Module):
         x = F.dropout(x, self.dropout, training=self.training)
         x = self.fc1(x)
         return F.log_softmax(x, dim=1)
+    
+    
+class ResMLP(nn.Module):
+    def __init__(self, nfeat, nhid, nclass, dropout):
+        super(ResMLP, self).__init__()
+        self.fc1 = nn.Linear(nfeat, nhid)
+        self.fc2 = nn.Linear(nhid, nhid)
+        self.fc3 = nn.Linear(nhid, nhid)
+        self.fc4 = nn.Linear(nhid, nhid)
+        self.fc5 = nn.Linear(nhid, nhid)
+        self.fc6 = nn.Linear(nhid, nhid)
+        self.fc7 = nn.Linear(nhid, nhid)
+        self.fc8 = nn.Linear(nhid, nhid)
+        self.fc9 = nn.Linear(nhid, nhid)
+        self.fc10 = nn.Linear(nhid, nclass)
+        self.dropout = dropout
+
+    def forward(self, x):
+        x1 = F.dropout(x, self.dropout, training=self.training)
+        x1 = F.relu(self.fc1(x1))
+        x2 = F.dropout(x1, self.dropout, training=self.training)
+        x2 = F.relu(self.fc2(x2)) + x1
+        x3 = F.dropout(x2, self.dropout, training=self.training)
+        x3 = F.relu(self.fc2(x3)) + x2
+        x4 = F.dropout(x3, self.dropout, training=self.training)
+        x4 = F.relu(self.fc2(x4)) + x3
+        x10 = F.dropout(x4, self.dropout, training=self.training)
+        x10 = self.fc10(x10)
+        return F.log_softmax(x10, dim=1)
+
+
+class DenseMLP(nn.Module):
+    def __init__(self, nfeat, nhid, nclass, dropout):
+        super(ResMLP, self).__init__()
+        self.fc1 = nn.Linear(nfeat, nhid)
+        self.fc2 = nn.Linear(nhid, nhid)
+        self.fc3 = nn.Linear(nhid, nhid)
+        self.fc4 = nn.Linear(nhid, nhid)
+        self.fc5 = nn.Linear(nhid, nhid)
+        self.fc6 = nn.Linear(nhid, nhid)
+        self.fc7 = nn.Linear(nhid, nhid)
+        self.fc8 = nn.Linear(nhid, nhid)
+        self.fc9 = nn.Linear(nhid, nhid)
+        self.fc10 = nn.Linear(nhid, nclass)
+        self.dropout = dropout
+
+    def forward(self, x):
+        x1 = F.dropout(x, self.dropout, training=self.training)
+        x1 = F.relu(self.fc1(x1))
+        x2 = F.dropout(x1, self.dropout, training=self.training)
+        x2 = F.relu(self.fc2(x2)) + x1
+        x3 = F.dropout(x2, self.dropout, training=self.training)
+        x3 = F.relu(self.fc2(x3)) + x1 + x2
+        x4 = F.dropout(x3, self.dropout, training=self.training)
+        x4 = F.relu(self.fc2(x4)) + x1 + x2 + x3
+        x10 = F.dropout(x4, self.dropout, training=self.training)
+        x10 = self.fc10(x10)
+        return F.log_softmax(x10, dim=1)
 
 
 class GCN_2dt(nn.Module):
