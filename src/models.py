@@ -66,9 +66,9 @@ class LR(nn.Module):
         return F.log_softmax(x, dim=1)
 
 
-class GCN_modified(nn.Module):
+class GCN_2dt(nn.Module):
     def __init__(self, nfeat, nhid, nclass, dropout):
-        super(GCN_modified, self).__init__()
+        super(GCN_2dt, self).__init__()
 
         self.gc1 = GraphConvolution(nfeat, nhid)
         self.gc2 = GraphConvolution(nhid, nclass)
