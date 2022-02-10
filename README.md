@@ -1,12 +1,12 @@
-## Evaluating Deep Graph Neural Networks
+## An Empirical Study of Deep Graph Neural Networks
 
 
 
 ### Requirements
 
-Environments: Xeon Gold 5120 (CPU), 384GB(RAM), TITAN RTX (GPU), Ubuntu 16.04 (OS).
+Environments: Xeon Platinum 8255C (CPU), 384GB (RAM), Tesla V100 32GB (GPU), Ubuntu 16.04 (OS).
 
-The PyTorch version we use is torch 1.7.1+cu110. Please refer to the official website -- https://pytorch.org/get-started/locally/ -- for the detailed installation instructions.
+The PyTorch version we use is torch 1.7.1+cu101. Please refer to the official website -- https://pytorch.org/get-started/locally/ -- for the detailed installation instructions.
 
 To install all the requirements:
 
