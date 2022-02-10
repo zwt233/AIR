@@ -88,4 +88,4 @@ bash ./src/run.sh
 
 ### Node Classification Results:
 
-<img src=".\citation_networks_perf.png" style="zoom:20%;" />
+<img src=".\node_classifi_perf.png" style="zoom:20%;" />
