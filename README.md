@@ -6,9 +6,9 @@
 
 Environments: Xeon Platinum 8255C (CPU), 384GB (RAM), Tesla V100 32GB (GPU), Ubuntu 16.04 (OS).
 
-The PyTorch version we use is torch 1.7.1+cu101. Please refer to the official website -- https://pytorch.org/get-started/locally/ -- for the detailed installation instructions.
+The PyTorch version we use is torch 1.7.1+cu110. Please refer to the official website -- https://pytorch.org/get-started/locally/ -- for the detailed installation instructions.
 
-To install all the requirements:
+To install other requirements:
 
 ```setup
 pip install -r requirements.txt
