@@ -1,4 +1,3 @@
-import time
 import argparse
 import torch
 from torch_geometric.utils import to_undirected
@@ -19,13 +18,14 @@ parser.add_argument('--dropout', type=float, default=0.2)
 parser.add_argument('--K', type=int, default=16)
 parser.add_argument('--weight_decay', type=float, default=0)
 parser.add_argument('--log_steps', type=int, default=1)
+parser.add_argument('--root', type=str, default='./')
 args = parser.parse_args()
 print(args)
 
 set_seed(42)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-dataset = PygNodePropPredDataset(name='ogbn-arxiv', root='./')
+dataset = PygNodePropPredDataset(name='ogbn-arxiv', root=args.root)
 data = dataset[0]
 num_features = dataset.num_features
 num_classes = dataset.num_classes
@@ -51,21 +51,17 @@ for run in range(args.runs):
     optimizer = torch.optim.Adam(
         model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     for epoch in range(1, 1 + args.epochs):
-        import time
-        t_start = time.time()
         loss = train(model, data, train_idx, optimizer)
         result = test(model, data, split_idx, evaluator)
         logger.add_result(run, result)
-        t_consume = time.time()-t_start
         if epoch % args.log_steps == 0:
             train_acc, valid_acc, test_acc = result
             print(f'Run: {run + 1:02d}, '
                   f'Epoch: {epoch:02d}, '
                   f'Loss: {loss:.4f}, '
                   f'Train: {100 * train_acc:.2f}%, '
-                  f'Valid: {100 * valid_acc:.2f}% '
-                  f'Test: {100 * test_acc:.2f}%'
-                  f'Time: {t_consume}')
+                  f'Valid: {100 * valid_acc:.2f}%, '
+                  f'Test: {100 * test_acc:.2f}%')
 
     logger.print_statistics(run)
 logger.print_statistics()

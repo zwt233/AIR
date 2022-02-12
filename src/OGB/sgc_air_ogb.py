@@ -50,7 +50,7 @@ def run(args, device):
         end = time.time()
         log = "Epoch {}, Time(s): {:.4f},Train loss: {:.4f}, Train acc: {:.4f} ".format(
             epoch, end - start, loss, acc*100)
-        if epoch % args.eval_every == 0 and epoch > args.train_epochs:
+        if epoch % args.eval_every == 0:
             with torch.no_grad():
                 acc = batch_test(model, feats, labels, val_loader, evaluator,
                            args.dataset)

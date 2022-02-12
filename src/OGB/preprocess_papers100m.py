@@ -9,7 +9,7 @@ from utils import sparse_mx_to_torch_sparse_tensor
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--hops', type=int, default=6)
+parser.add_argument('--num-hops', type=int, default=6)
 parser.add_argument('--root', type=str, default='./')
 args = parser.parse_args()
 print(args)
@@ -41,7 +41,7 @@ adj = sparse_mx_to_torch_sparse_tensor(adj)
 print('Start processing')
 saved = torch.cat((x[train_idx], x[valid_idx], x[test_idx]), dim=0)
 torch.save(saved, f'./data/D_papers100m_feat_0_D.pt')
-for i in tqdm(range(args.hops)):
+for i in tqdm(range(args.num-hops)):
     x = adj @ x
     saved = torch.cat((x[train_idx], x[valid_idx], x[test_idx]), dim=0)
     torch.save(saved, f'./data/D_papers100m_feat_{i+1}_D.pt')

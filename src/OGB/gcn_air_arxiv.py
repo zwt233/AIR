@@ -1,5 +1,4 @@
 import gc
-import time
 import argparse
 import torch
 from torch_geometric.utils import to_undirected
@@ -12,7 +11,7 @@ from utils import train, test
 def main():
     parser = argparse.ArgumentParser(description='OGBN-Arxiv (Full-Batch)')
     parser.add_argument('--device', type=int, default=1)
-    parser.add_argument('--log_steps', type=int, default=10)
+    parser.add_argument('--log_steps', type=int, default=1)
     parser.add_argument('--num_layers', type=int, default=16)
     parser.add_argument('--hidden_channels', type=int, default=256)
     parser.add_argument('--dropout', type=float, default=0.1)
@@ -24,13 +23,14 @@ def main():
     parser.add_argument('--patience', type=int, default=200, help='patience')
     parser.add_argument('--alpha', type=float, default=0.5, help='alpha_l')
     parser.add_argument('--norm', default='bn', help='norm layer.')
+    parser.add_argument('--root', type=str, default='./')
     args = parser.parse_args()
     print(args)
 
     device = f'cuda:{args.device}' if torch.cuda.is_available() else 'cpu'
     device = torch.device(device)
 
-    dataset = PygNodePropPredDataset(name='ogbn-arxiv', root='./')
+    dataset = PygNodePropPredDataset(name='ogbn-arxiv', root=args.root)
     split_idx = dataset.get_idx_split()
     data = dataset[0]
     data = data.to(device)
@@ -51,10 +51,8 @@ def main():
         best_val = 0
         final_test_acc = 0
         for epoch in range(1, 1 + args.epochs):
-            t_start = time.time()
             loss = train(model, data, train_idx, optimizer)
-            t_consume = time.time() - t_start
-            result = test(model, data, data.y, split_idx, evaluator)
+            result = test(model, data, split_idx, evaluator)
             train_acc, valid_acc, test_acc = result
             if epoch % args.log_steps == 0:
                 train_acc, valid_acc, test_acc = result

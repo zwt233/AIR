@@ -34,12 +34,12 @@ For the three OGB dataset, please run the following commands:
 
 ```bash
 cd ./src/OGB
-python main.py --dataset ogbn-arxiv --num_hops 5 --hidden 1024 --n-layers 6 --input-drop 0 --att-drop 0.5 --dropout 0.5 --pre-process --epochs 1000 --patience 300 --num-runs 10 --eval-every 1 --eval-batch 500000 --act leaky_relu --batch 50000 --root ./ --seed 0  --gpu 0
+python sgc_air_ogb.py --dataset ogbn-arxiv --num-hops 5 --hidden 1024 --n-layers 6 --input-drop 0 --att-drop 0.5 --dropout 0.5 --pre-process --epochs 1000 --patience 300 --num-runs 10 --eval-every 1 --eval-batch 500000 --act leaky_relu --batch 50000 --seed 0 --gpu 0 --root ./
 
-python main.py --dataset ogbn-products --num_hops 5 --hidden 1024 --n-layers 2 --input-drop 0.5 --att-drop 0.4 --dropout 0.2 --pre-process --epochs 1000 --patience 300 --num-runs 10 --eval-every 1 --eval-batch 500000 --act leaky_relu --batch 50000  --root ./ --seed 0 --gpu 0
+python sgc_air_ogb.py --dataset ogbn-products --num-hops 5 --hidden 1024 --n-layers 2 --input-drop 0.5 --att-drop 0.4 --dropout 0.2 --pre-process --epochs 1000 --patience 300 --num-runs 10 --eval-every 1 --eval-batch 500000 --act leaky_relu --batch 50000 --seed 0 --gpu 0 --root ./
 
-python preprocess_papers100m.py --h
-python main.py --dataset ogbn-papers100M --num-hops 15 --hidden 1024 --n-layers 6 --input-drop 0 --att-drop 0.5 --dropout 0.5 --pre-process --epochs 500 --patience 300 --num-runs 3 --eval-every 1 --eval-batch 500000 --act leaky_relu --batch 50000 --root ./ --seed 0  --gpu 0
+python preprocess_papers100m.py --num-hops 16
+python sgc_air_ogb.py --dataset ogbn-papers100M --num-hops 15 --hidden 1024 --n-layers 6 --input-drop 0 --att-drop 0.5 --dropout 0.5 --pre-process --epochs 500 --patience 300 --num-runs 3 --eval-every 1 --eval-batch 500000 --act leaky_relu --batch 50000 --seed 0 --gpu 0 --root ./
 ```
 
  ### APPNP+AIR Training:
@@ -60,7 +60,7 @@ For the ogbn-arxiv dataset, please run the following commands:
 
 ```bash
 cd ./src/OGB
-python appnp_air_arxiv.py
+python appnp_air_arxiv.py --root ./
 ```
 
  ### GCN+AIR Training:
@@ -81,7 +81,7 @@ For the ogbn-arxiv dataset, please run the following commands:
 
 ```bash
 cd ./src/OGB
-python gcn_air_arxiv.py
+python gcn_air_arxiv.py --root ./
 ```
 
 
