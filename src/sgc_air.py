@@ -30,7 +30,7 @@ n_classes = labels.max().item()+1
 adj = aug_normalized_adjacency(adj)
 adj = sparse_mx_to_torch_sparse_tensor(adj).float().to(device)
 feature_list = [features.to(device)]
-for i in range(args.num_hops):
+for i in range(args.hops):
     propagated_feat = torch.spmm(adj, feature_list[-1]).to(device)
     feature_list.append(propagated_feat)
 
@@ -72,7 +72,7 @@ test_labels = labels[idx_test]
 model = sgc_air(nfeat=features.shape[1], nhid=args.hidden,
                 nclass=labels.max().item() + 1,
                 dropout=args.dropout,
-                num_hops=args.num_hops)
+                num_hops=args.hops)
 model.to(device)
 optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
 
