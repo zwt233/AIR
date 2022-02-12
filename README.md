@@ -38,6 +38,7 @@ python main.py --dataset ogbn-arxiv --num_hops 5 --hidden 1024 --n-layers 6 --in
 
 python main.py --dataset ogbn-products --num_hops 5 --hidden 1024 --n-layers 2 --input-drop 0.5 --att-drop 0.4 --dropout 0.2 --pre-process --epochs 1000 --patience 300 --num-runs 10 --eval-every 1 --eval-batch 500000 --act leaky_relu --batch 50000  --root ./ --seed 0 --gpu 0
 
+python preprocess_papers100m.py --h
 python main.py --dataset ogbn-papers100M --num-hops 15 --hidden 1024 --n-layers 6 --input-drop 0 --att-drop 0.5 --dropout 0.5 --pre-process --epochs 500 --patience 300 --num-runs 3 --eval-every 1 --eval-batch 500000 --act leaky_relu --batch 50000 --root ./ --seed 0  --gpu 0
 ```
 
