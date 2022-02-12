@@ -8,84 +8,73 @@ Environments: Xeon Platinum 8255C (CPU), 384GB (RAM), Tesla V100 32GB (GPU), Ubu
 
 The PyTorch version we use is torch 1.7.1+cu110. Please refer to the official website -- https://pytorch.org/get-started/locally/ -- for the detailed installation instructions.
 
+We also use PyG to preprocess the data in the ogbn-papers100M dataset. Please refer to the official website -- https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html -- for the detailed installation instructions.
+
 To install other requirements:
 
 ```setup
 pip install -r requirements.txt
 ```
 
+ ### SGC+AIR Training:
 
+To reproduce the experimental results on the three small citation networks, please run the following commands:
 
-### Experimental Analysis
+```bash
+cd ./src
 
-We implement **ResGCN**, **DenseGCN**, **MLP+Res**, **MLP+Dense**, **SGC**, and **2 GCN variants** on our own in 
-
-```
-./src/models.py
-```
-
-
-
-The code of **ResGCN** and **DenseGCN** is in 
-
-```
-./src/gcn_sc.py
+python sgc_air.py --dataset cora --lr 0.1 --weight_decay 5e-4 --hidden 200 --dropout 0.4 --hops 10
+python sgc_air.py --dataset citeseer --lr 0.1 --weight_decay 1e-3 --hidden 200 --dropout 0.2 --hops 15
+python sgc_air.py --dataset pubmed --lr 0.05 --weight_decay 5e-4 --hidden 200 --dropout 0.5 --hops 30
 ```
 
-The code of **MLP+Res** and **MLP+Dense** is in 
+For the three OGB dataset, please run the following commands:
+
+```bash
+cd ./src
 
 ```
-./src/mlp_sc.py
+
+ ### APPNP+AIR Training:
+
+To reproduce the experimental results on the three small citation networks, please run the following commands:
+
+```bash
+cd ./src
+
+python appnp_air.py --dataset cora --lr 0.1 --weight_decay 3e-3 --hidden 200 --dropout 0.2 --alpha 0.95 --hops 10
+python appnp_air.py --dataset citeseer --lr 0.01 --weight_decay 3e-3 --hidden 200 --dropout 0.2 --alpha 0.95 --hops 10
+python apppnp_air.py --dataset pubmed --lr 0.05 --weight_decay 5e-4 --hidden 200 --dropout 0.5 --alpha 0.95 --hops 10
 ```
 
-The code of **SGC** is in 
+For the ogbn-arxiv dataset, please run the following commands:
+
+```bash
+cd ./src
 
 ```
-./src/sgc.py
+
+ ### GCN+AIR Training:
+
+To reproduce the experimental results on the three small citation networks, please run the following commands:
+
+```bash
+cd ./src
+
+python gcn_air.py --dataset cora --lr 0.01 --weight_decay 1e-3 --hidden 32 --dropout 0.5 --hops 6
+python gcn_air.py --dataset citeseer --lr 0.01 --weight_decay 1e-2 --hidden 16 --dropout 0.3 --hops 4
+python gcn_air.py --dataset pubmed --lr 0.1 --weight_decay 1e-3 --hidden 32 --dropout 0.5 --hops 4
 ```
 
-The code of **GCN with D<sub>t</sub>=2** and **GCN with D<sub>p</sub>=2D<sub>t</sub>** is in 
+For the ogbn-arxiv dataset, please run the following commands:
+
+```bash
+cd ./src
 
 ```
-./src/gcn_2dt.py,  ./src/gcn_dp2dt.py
-```
-
-The code for printing the gradient of the first layer of GCN is in 
-
-```
-./src/print_gradient.py
-```
-
-The code for the scalability experiment is provided in 
-
-```
-./src/scalability/
-```
-
-please run gen_graph.py first to generate artificial graphs; 
-
-then run 
-
-```
-./src/scalability/appnp/gcn/dgmlp.py --n="graph_size"
-```
-
-where "graph size" varies from 100,000 to 1,000,000 with the step of 100,000.
-
-We also provide the official code of DAGNN, S<sup>2</sup>GC, and Grand under ./src/
 
 
-
-### DGMLP Training
-
-To test the performance of DGMLP on the Cora, Citeseer, Pubmed dataset, please run this command:
-
-```train
-bash ./src/run.sh
-```
-
- 
 
 ### Node Classification Results:
 
-<img src=".\node_classifi_perf.png" style="zoom:20%;" />
+<img src=".\node_classifi_perf.png" style="zoom:80%;" />
