@@ -1,4 +1,4 @@
-## An Empirical Study of Deep Graph Neural Networks
+## Model Degradation Hinders Deep Graph Neural Networks
 
 
 
